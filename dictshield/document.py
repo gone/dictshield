@@ -206,3 +206,20 @@ class Document(BaseDocument):
         """
         fun = lambda k,v: k in values
         return cls._validate_helper(fun, values, validate_all=validate_all)
+
+try:
+    import tnetstring
+    import StringIO
+    
+    class TNetstringMixin(object):
+        """Adds support for rendering in/out of tnetstrings.
+        """
+        def to_tnetstring(self):
+            return tnetstring.dumps(self.to_python())
+
+        def from_tnetstring(self, string):
+            return tnetstring.loads(string)
+except:
+    pass # No tnetstring support for you!
+
+        
